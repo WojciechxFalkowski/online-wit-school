@@ -1,0 +1,26 @@
+﻿@model TSQLV6.Models.Department
+
+@{
+    ViewData["Title"] = "Department Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-3xl font-bold mb-4">Department Details</h1>
+
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <dl class="divide-y divide-gray-200">
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Department ID</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.DepartmentId)</dd>
+        </div>
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Department Name</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.DepartmentName)</dd>
+        </div>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.DepartmentId" class="text-indigo-600 hover:text-indigo-900">Edit</a> |
+    <a asp-action="Index" class="text-indigo-600 hover:text-indigo-900">Back to List</a>
+</div>

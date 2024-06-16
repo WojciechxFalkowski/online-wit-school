@@ -1,0 +1,48 @@
+﻿@model TSQLV6.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isAdmin = ViewBag.IsAdmin ?? false;
+}
+
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-bold leading-tight text-gray-900 mb-5">Details</h1>
+
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h4 class="text-2xl font-semibold mb-4">User Details</h4>
+        <dl class="divide-y divide-gray-200">
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Email</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Email)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">First Name</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.FirstName)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Last Name</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.LastName)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Date of Birth</dt>
+                <dd class="text-gray-900 w-3/4">@Model.DateOfBirth?.ToString("dd-MM-yyyy")</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">User Type</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.UserType)</dd>
+            </div>
+        </dl>
+    </div>
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model?.UserId" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+        @if (isAdmin && Model.UserType != "administrator")
+        {
+         <a asp-action = "Delete" asp - route - id = "@Model?.UserId" class="text-red-600 hover:text-red-900">Delete</a>
+    }
+        @if (isAdmin)
+        {
+         <a asp-action="Index" class="text-indigo-600 hover:text-indigo-900">Back to List</a>
+}
+    </div>
+</div>

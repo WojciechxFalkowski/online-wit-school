@@ -1,0 +1,20 @@
+﻿@model TSQLV6.Models.Department
+
+@{
+    ViewData["Title"] = "Create Department";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-3xl font-bold mb-4">Create New Department</h1>
+
+<form asp-action="Create" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="mb-4">
+        <label asp-for="DepartmentName" class="block text-gray-700 text-sm font-bold mb-2"></label>
+        <input asp-for="DepartmentName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+        <span asp-validation-for="DepartmentName" class="text-red-600 text-sm"></span>
+    </div>
+    <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create</button>
+        <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+    </div>
+</form>

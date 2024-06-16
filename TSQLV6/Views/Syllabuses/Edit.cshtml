@@ -1,0 +1,41 @@
+﻿@model TSQLV6.Models.SyllabusEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Syllabus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-3xl font-bold mb-4">Edit Syllabus</h1>
+
+<form asp-action="Edit" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <input type="hidden" asp-for="SyllabusId" />
+    <div class="mb-4">
+        <label asp-for="CourseId" class="block text-gray-700 text-sm font-bold mb-2">Course</label>
+        <select asp-for="CourseId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Courses"></select>
+        <span asp-validation-for="CourseId" class="text-red-600 text-sm"></span>
+    </div>
+    <div class="mb-4">
+        <label asp-for="Description" class="block text-gray-700 text-sm font-bold mb-2"></label>
+        <textarea asp-for="Description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+        <span asp-validation-for="Description" class="text-red-600 text-sm"></span>
+    </div>
+    <div class="mb-4">
+        <label asp-for="LearningObjectives" class="block text-gray-700 text-sm font-bold mb-2"></label>
+        <textarea asp-for="LearningObjectives" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+        <span asp-validation-for="LearningObjectives" class="text-red-600 text-sm"></span>
+    </div>
+    <div class="mb-4">
+        <label asp-for="AssessmentMethods" class="block text-gray-700 text-sm font-bold mb-2"></label>
+        <textarea asp-for="AssessmentMethods" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+        <span asp-validation-for="AssessmentMethods" class="text-red-600 text-sm"></span>
+    </div>
+    <div class="mb-4">
+        <label asp-for="ReadingMaterials" class="block text-gray-700 text-sm font-bold mb-2"></label>
+        <textarea asp-for="ReadingMaterials" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+        <span asp-validation-for="ReadingMaterials" class="text-red-600 text-sm"></span>
+    </div>
+    <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
+        <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+    </div>
+</form>

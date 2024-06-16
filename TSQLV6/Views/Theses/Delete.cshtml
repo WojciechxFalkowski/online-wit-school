@@ -1,0 +1,43 @@
+﻿@model TSQLV6.Models.Thesis
+
+@{
+    ViewData["Title"] = "Delete Thesis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-3xl font-bold mb-4">Delete Thesis</h1>
+
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <dl class="divide-y divide-gray-200">
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Thesis ID</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.ThesisId)</dd>
+        </div>
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Title</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Title)</dd>
+        </div>
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Thesis Type</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.ThesisType)</dd>
+        </div>
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Upload Date</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.UploadDate)</dd>
+        </div>
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Document Path</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.DocumentPath)</dd>
+        </div>
+        <div class="py-4 flex">
+            <dt class="font-medium text-gray-700 w-1/4">Student</dt>
+            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Student.Email)</dd>
+        </div>
+    </dl>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post" class="mt-4">
+    <input type="hidden" asp-for="ThesisId" />
+    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
+    <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+</form>
