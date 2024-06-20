@@ -46,7 +46,7 @@
                             @Html.DisplayFor(modelItem => item.LastName)
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            @Html.DisplayFor(modelItem => item.DateOfBirth)
+                            @item.DateOfBirth?.ToString("dd/MM/yyyy")
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             @Html.DisplayFor(modelItem => item.UserType)
@@ -54,14 +54,15 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <a asp-action="Details" asp-route-id="@item.UserId" class="text-indigo-600 hover:text-indigo-900">Details</a>
                             <span>|</span>
-                            <a asp-action="Edit" asp-route-id="@item.UserId" class="text-indigo-600 hover:text-indigo-900">Edit</a> 
-                            @if (item.UserType != "administrator")
+                            <a asp-action="Edit" asp-route-id="@item.UserId" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                           <!--@if (item.UserType != "administrator")
                             {
                                 <span>|</span> <a asp-action="Delete" asp - route - id="@item.UserId" class="text-red-600 hover:text-red-900">Delete</a>
-    }
-                    </td>
-                </tr>
-}
+                            }
+                             -->
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

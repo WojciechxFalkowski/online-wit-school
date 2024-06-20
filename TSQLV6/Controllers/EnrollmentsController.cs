@@ -26,7 +26,7 @@ namespace TSQLV6.Controllers
 
             if (User.IsInRole("student"))
             {
-                var userEmail = User.Identity.Name; // Użyj Email jako identyfikatora użytkownika
+                var userEmail = User.Identity.Name;
 
                 var userId = _context.Users
                     .Where(u => u.Email == userEmail)

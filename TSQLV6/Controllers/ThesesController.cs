@@ -96,7 +96,7 @@ public class ThesesController : Controller
         }
 
         var thesis = await _context.Theses
-            .Include(t => t.Student) // Wczytanie powiązanych danych użytkownika
+            .Include(t => t.Student)
             .FirstOrDefaultAsync(t => t.ThesisId == id);
         if (thesis == null)
         {
@@ -120,6 +120,8 @@ public class ThesesController : Controller
             DocumentPath = thesis.DocumentPath
         };
 
+        ViewBag.StudentName = thesis.Student.FirstName + " " + thesis.Student.LastName;
+
         return View(thesisEditViewModel);
     }
 
@@ -138,7 +140,7 @@ public class ThesesController : Controller
             try
             {
                 var thesis = await _context.Theses
-                    .Include(t => t.Student) // Wczytanie powiązanych danych użytkownika
+                    .Include(t => t.Student) 
                     .FirstOrDefaultAsync(t => t.ThesisId == id);
                 if (thesis == null)
                 {
@@ -187,7 +189,7 @@ public class ThesesController : Controller
         }
 
         var thesis = await _context.Theses
-            .Include(t => t.Student) // Wczytanie powiązanych danych użytkownika
+            .Include(t => t.Student) 
             .FirstOrDefaultAsync(m => m.ThesisId == id);
         if (thesis == null)
         {
@@ -203,8 +205,11 @@ public class ThesesController : Controller
             }
         }
 
+        ViewBag.StudentName = thesis.Student.FirstName + " " + thesis.Student.LastName;
+
         return View(thesis);
     }
+
 
     // GET: Theses/Delete/5
     [Authorize(Roles = "student,administrator")]
@@ -216,7 +221,7 @@ public class ThesesController : Controller
         }
 
         var thesis = await _context.Theses
-            .Include(t => t.Student) // Wczytanie powiązanych danych użytkownika
+            .Include(t => t.Student)
             .FirstOrDefaultAsync(m => m.ThesisId == id);
         if (thesis == null)
         {
