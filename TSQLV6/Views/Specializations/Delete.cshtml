@@ -5,31 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-3xl font-bold mb-4">Delete Specialization</h1>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-bold mb-4">Delete Specialization</h1>
 
-<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <dl class="divide-y divide-gray-200">
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Specialization ID</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SpecializationId)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Specialization Name</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SpecializationName)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Department</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Department.DepartmentName)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Description</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Description)</dd>
-        </div>
-    </dl>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <dl class="divide-y divide-gray-200">
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Specialization ID</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SpecializationId)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Specialization Name</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SpecializationName)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Department</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Department.DepartmentName)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Description</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Description)</dd>
+            </div>
+        </dl>
+    </div>
+
+    <form asp-action="Delete" method="post" class="mt-4">
+        <input type="hidden" asp-for="SpecializationId" />
+        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
+        <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+    </form>
 </div>
-
-<form asp-action="Delete" method="post" class="mt-4">
-    <input type="hidden" asp-for="SpecializationId" />
-    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
-    <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
-</form>

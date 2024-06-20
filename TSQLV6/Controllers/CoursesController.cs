@@ -17,6 +17,10 @@ public class CoursesController : Controller
     // GET: Courses
     public async Task<IActionResult> Index()
     {
+        if (!User.Identity.IsAuthenticated)
+        {
+            return RedirectToAction(nameof(Index));
+        }
         var courses = await _context.Courses.Include(c => c.Lecturer).ToListAsync();
         var lecturers = await _context.Users.Where(u => u.UserType == "lecturer").ToDictionaryAsync(u => u.UserId, u => u.FirstName + " " + u.LastName);
 

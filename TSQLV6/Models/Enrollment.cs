@@ -15,5 +15,7 @@ public partial class Enrollment
 
     public DateOnly? CompletionDate { get; set; }
 
+    public string? Points { get; set; }
+
     public virtual Course Course { get; set; } = null!;
 }

@@ -4,14 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WIT </title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body class="bg-gray-100">
     <header>
         @await Html.PartialAsync("_Header")
     </header>
-    <main role="main" class="container mx-auto mt-6 px-6">
+    <main role="main">
         @RenderBody()
     </main>
 

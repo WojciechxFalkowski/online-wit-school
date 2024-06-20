@@ -6,53 +6,55 @@
     bool isAdmin = ViewBag.IsAdmin ?? false;
     bool isCurrentUser = ViewBag.IsCurrentUser ?? false;
 }
+<div class="container mx-auto mt-6 px-6">
 
-<h1 class="text-3xl font-bold mb-6">Edit User</h1>
+    <h1 class="text-3xl font-bold mb-6">Edit User</h1>
 
-<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <form asp-action="Edit" method="post" id="editForm">
-        <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
-        <input type="hidden" asp-for="UserId" />
-        <div class="mb-4">
-            <label asp-for="Email" class="block text-gray-700 text-sm font-bold mb-2"></label>
-            <input asp-for="Email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
-        </div>
-        <div class="mb-4">
-            <label asp-for="FirstName" class="block text-gray-700 text-sm font-bold mb-2"></label>
-            <input asp-for="FirstName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            <span asp-validation-for="FirstName" class="text-red-600 text-sm"></span>
-        </div>
-        <div class="mb-4">
-            <label asp-for="LastName" class="block text-gray-700 text-sm font-bold mb-2"></label>
-            <input asp-for="LastName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            <span asp-validation-for="LastName" class="text-red-600 text-sm"></span>
-        </div>
-        <div class="mb-4">
-            <label asp-for="DateOfBirth" class="block text-gray-700 text-sm font-bold mb-2"></label>
-            <input asp-for="DateOfBirth" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            <span asp-validation-for="DateOfBirth" class="text-red-600 text-sm"></span>
-        </div>
-        @if (isAdmin && !isCurrentUser)
-        {
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form asp-action="Edit" method="post" id="editForm">
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+            <input type="hidden" asp-for="UserId" />
             <div class="mb-4">
-                <label asp-for="UserType" class="block text-gray-700 text-sm font-bold mb-2"></label>
-                <select asp-for="UserType" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="">Select user type</option>
-                    <option value="student">Student</option>
-                    <option value="lecturer">Lecturer</option>
-                </select>
-                <span asp-validation-for="UserType" class="text-red-600 text-sm"></span>
+                <label asp-for="Email" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                <input asp-for="Email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
             </div>
-        }
-        <div class="flex items-center justify-between">
-            <input type="submit" value="Save" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" />
-            @if (isAdmin)
+            <div class="mb-4">
+                <label asp-for="FirstName" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                <input asp-for="FirstName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <span asp-validation-for="FirstName" class="text-red-600 text-sm"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="LastName" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                <input asp-for="LastName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <span asp-validation-for="LastName" class="text-red-600 text-sm"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="DateOfBirth" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                <input asp-for="DateOfBirth" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <span asp-validation-for="DateOfBirth" class="text-red-600 text-sm"></span>
+            </div>
+            @if (isAdmin && !isCurrentUser)
             {
-                <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+                <div class="mb-4">
+                    <label asp-for="UserType" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                    <select asp-for="UserType" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Select user type</option>
+                        <option value="student">Student</option>
+                        <option value="lecturer">Lecturer</option>
+                    </select>
+                    <span asp-validation-for="UserType" class="text-red-600 text-sm"></span>
+                </div>
             }
-        </div>
-    </form>
+            <div class="flex items-center justify-between">
+                <input type="submit" value="Save" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" />
+                @if (isAdmin)
+                {
+                    <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+                }
+            </div>
+        </form>
+    </div>
 </div>
 
 @section Scripts {

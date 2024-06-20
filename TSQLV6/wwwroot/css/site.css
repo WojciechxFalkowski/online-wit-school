@@ -96,3 +96,29 @@ body {
         font-size: 1rem;
         color: #6c757d;
     }
+
+.custom-button:hover {
+    color: #d82315;
+    border-color: #d82315;
+}
+
+    .custom-button:hover .button-text {
+        transform: translateX(10px);
+    }
+
+    .custom-button:hover .button-icon {
+        opacity: 1;
+    }
+
+.custom-button .button-text {
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-button .button-icon {
+    transition: opacity 0.3s ease-in-out;
+}
+
+
+.link {
+    color: #d82315
+}

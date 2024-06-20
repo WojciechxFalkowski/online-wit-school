@@ -4,7 +4,7 @@
 @{
     var user = HttpContextAccessor.HttpContext.User;
     var isAdmin = user.IsInRole("administrator");
-    var isStudent = user.IsInRole("student") || (user.Identity.IsAuthenticated && !isAdmin);
+    var isStudent = user.IsInRole("student") && !isAdmin;
 }
 
 <nav class="bg-white px-6 py-3 shadow">
@@ -16,11 +16,9 @@
             <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
             @if (isAdmin)
             {
-                <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
                 <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
-                <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
-                <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Specializations" asp-action="Index">Specializations</a>
-                <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Enrollments" asp-action="Index">Enrollments</a>
+                
+               
             }
             @if (user.Identity.IsAuthenticated)
             {
@@ -29,8 +27,12 @@
                     <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
                 }
                 <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Users" asp-action="Details" asp-route-id="@user.FindFirst(ClaimTypes.NameIdentifier)?.Value">Details</a>
+                <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
+                <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Specializations" asp-action="Index">Specializations</a>
                 @if (isAdmin || isStudent)
                 {
+                    <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
+                    <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Enrollments" asp-action="Index">Enrollments</a>
                     <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Theses" asp-action="Index">Theses</a>
                 }
                 <a class="py-2 px-4 text-gray-700 hover:bg-gray-100" asp-area="" asp-controller="Syllabuses" asp-action="Index">Syllabuses</a>

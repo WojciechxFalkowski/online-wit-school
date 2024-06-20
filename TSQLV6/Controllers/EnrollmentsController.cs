@@ -22,8 +22,21 @@ namespace TSQLV6.Controllers
         // GET: Enrollments
         public async Task<IActionResult> Index()
         {
-            var enrollments = await _context.Enrollments
-                .Include(e => e.Course)
+            IQueryable<Enrollment> enrollmentsQuery = _context.Enrollments.Include(e => e.Course);
+
+            if (User.IsInRole("student"))
+            {
+                var userEmail = User.Identity.Name; // Użyj Email jako identyfikatora użytkownika
+
+                var userId = _context.Users
+                    .Where(u => u.Email == userEmail)
+                    .Select(u => u.UserId.ToString())
+                    .FirstOrDefault();
+
+                enrollmentsQuery = enrollmentsQuery.Where(e => e.StudentId == userId);
+            }
+
+            var enrollments = await enrollmentsQuery
                 .Select(e => new EnrollmentViewModel
                 {
                     EnrollmentId = e.EnrollmentId,
@@ -33,6 +46,7 @@ namespace TSQLV6.Controllers
                         .FirstOrDefault(),
                     CourseName = e.Course.CourseName,
                     Grade = e.Grade,
+                    Points = e.Points,
                     CompletionDate = e.CompletionDate.HasValue ? e.CompletionDate.Value.ToString("yyyy-MM-dd") : null
                 })
                 .ToListAsync();
@@ -51,12 +65,33 @@ namespace TSQLV6.Controllers
             var enrollment = await _context.Enrollments
                 .Include(e => e.Course)
                 .FirstOrDefaultAsync(m => m.EnrollmentId == id);
+
             if (enrollment == null)
             {
                 return NotFound();
             }
 
-            return View(enrollment);
+            var student = await _context.Users
+                .Where(u => u.UserId.ToString() == enrollment.StudentId)
+                .Select(u => new { u.FirstName, u.LastName })
+                .FirstOrDefaultAsync();
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new EnrollmentDetailsViewModel
+            {
+                EnrollmentId = enrollment.EnrollmentId,
+                StudentName = student.FirstName + " " + student.LastName,
+                CourseName = enrollment.Course.CourseName,
+                Grade = enrollment.Grade,
+                CompletionDate = enrollment.CompletionDate.ToString(),
+                Points = enrollment.Points
+            };
+
+            return View(viewModel);
         }
 
         // GET: Enrollments/Create
@@ -94,7 +129,8 @@ namespace TSQLV6.Controllers
                     StudentId = model.StudentId,
                     CourseId = model.CourseId,
                     Grade = model.Grade,
-                    CompletionDate = model.CompletionDate
+                    CompletionDate = model.CompletionDate,
+                    Points = model.Points,
                 };
                 _context.Add(enrollment);
                 await _context.SaveChangesAsync();
@@ -112,28 +148,33 @@ namespace TSQLV6.Controllers
         {
             if (id == null)
             {
+                _logger.LogInformation("Enrollment edit v1");
                 return NotFound();
             }
 
             var enrollment = await _context.Enrollments.FindAsync(id);
             if (enrollment == null)
             {
+                _logger.LogInformation("Enrollment edit v2");
                 return NotFound();
             }
 
+            _logger.LogInformation("Enrollment edit v");
             var model = new EditEnrollmentViewModel
             {
                 EnrollmentId = enrollment.EnrollmentId,
                 StudentId = enrollment.StudentId,
                 CourseId = enrollment.CourseId,
                 Grade = enrollment.Grade,
-                CompletionDate = enrollment.CompletionDate
+                CompletionDate = enrollment.CompletionDate,
+                Points = enrollment.Points
             };
 
             ViewData["Students"] = new SelectList(_context.Students.Select(s => new { s.StudentId, StudentName = s.StudentNavigation.FirstName + " " + s.StudentNavigation.LastName }), "StudentId", "StudentName", model.StudentId);
             ViewData["Courses"] = new SelectList(_context.Courses, "CourseId", "CourseName", model.CourseId);
             return View(model);
         }
+
 
         // POST: Enrollments/Edit/5
         [HttpPost]
@@ -142,13 +183,22 @@ namespace TSQLV6.Controllers
         {
             if (id != model.EnrollmentId)
             {
+                _logger.LogInformation("Enrollment edit v1");
+                _logger.LogInformation("Enrollment edit v1 {id} {model.EnrollmentId}", id, model.EnrollmentId);
+
                 return NotFound();
             }
 
+            _logger.LogInformation("Enrollment edit v2");
+
             if (ModelState.IsValid)
             {
+                _logger.LogInformation("Enrollment edit v3");
+
                 try
                 {
+                    _logger.LogInformation("Enrollment edit v4");
+
                     var enrollment = await _context.Enrollments.FindAsync(id);
                     if (enrollment == null)
                     {
@@ -159,12 +209,15 @@ namespace TSQLV6.Controllers
                     enrollment.CourseId = model.CourseId;
                     enrollment.Grade = model.Grade;
                     enrollment.CompletionDate = model.CompletionDate;
+                    enrollment.Points = model.Points;
 
                     _context.Update(enrollment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    _logger.LogInformation("Enrollment edit v5");
+
                     if (!EnrollmentExists(model.EnrollmentId))
                     {
                         return NotFound();
@@ -174,6 +227,8 @@ namespace TSQLV6.Controllers
                         throw;
                     }
                 }
+                _logger.LogInformation("Enrollment edit v6");
+
                 return RedirectToAction(nameof(Index));
             }
 

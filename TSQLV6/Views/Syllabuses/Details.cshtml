@@ -5,42 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-3xl font-bold mb-4">Syllabus Details</h1>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-bold mb-4">Syllabus Details</h1>
 
-<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <dl class="divide-y divide-gray-200">
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Syllabus ID</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SyllabusId)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Course Name</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Course.CourseName)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Description</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Description)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Learning Objectives</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.LearningObjectives)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Assessment Methods</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.AssessmentMethods)</dd>
-        </div>
-        <div class="py-4 flex">
-            <dt class="font-medium text-gray-700 w-1/4">Reading Materials</dt>
-            <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.ReadingMaterials)</dd>
-        </div>
-    </dl>
-</div>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <dl class="divide-y divide-gray-200">
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Syllabus ID</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SyllabusId)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Course Name</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Course.CourseName)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Description</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.Description)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Learning Objectives</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.LearningObjectives)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Assessment Methods</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.AssessmentMethods)</dd>
+            </div>
+            <div class="py-4 flex">
+                <dt class="font-medium text-gray-700 w-1/4">Reading Materials</dt>
+                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.ReadingMaterials)</dd>
+            </div>
+        </dl>
+    </div>
 
-<div class="mt-4">
-    @if (User.IsInRole("administrator"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.SyllabusId" class="text-indigo-600 hover:text-indigo-900">Edit</a> <span>|</span>
-    }
-    
-    <a asp-action="Index" class="text-indigo-600 hover:text-indigo-900">Back to List</a>
+    <div class="mt-4">
+        @if (User.IsInRole("administrator"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.SyllabusId" class="text-indigo-600 hover:text-indigo-900">Edit</a> <span>|</span>
+        }
+
+        <a asp-action="Index" class="text-indigo-600 hover:text-indigo-900">Back to List</a>
+    </div>
 </div>

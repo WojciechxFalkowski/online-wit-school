@@ -1,34 +1,78 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var newsItems = ViewBag.NewsItems as List<NewsItem>;
+    var headerItem = ViewBag.HeaderItem as HeaderItem;
+    var exhibitions = ViewBag.Exhibitions as List<ExhibitionItem>;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Discover the path to your future with WIT.</p>
+<header>
+    <div class="relative w-full max-h-96" style="background-color: @headerItem.BackgroundColor;">
+        <a class="" href="@headerItem.Link" title="@headerItem.Title">
+            <img src="@headerItem.ImageUrl" alt="@headerItem.Title" class="mx-auto max-h-96">
+        </a>
+    </div>
+</header>
+
+<div class="container mx-auto my-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach (var item in newsItems)
+        {
+            <a href="@item.Link" class="bg-white shadow-md rounded-sm overflow-hidden transform transition hover:scale-105 flex flex-col justify-between items-end">
+                <div>
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('@item.ImageUrl');"></div>
+
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-2">@item.Title</h2>
+                        <p class="text-gray-600 text-sm mb-4">@item.Date</p>
+                        <p class="text-gray-700">@item.Description</p>
+                    </div>
+                </div>
+
+                <div class="px-6 pb-6">
+                    <p class="font-bold link whitespace-nowrap">@item.LinkText <i class="bi bi-chevron-right"></i></p>
+                </div>
+            </a>
+        }
+    </div>
 </div>
 
-<div class="enroll-section">
-    <h2>Enroll in Our Programs</h2>
-    <p>Explore our wide range of study programs designed to help you achieve your academic and career goals. Join us and become part of a community that values excellence in education and innovation.</p>
-    <a href="/enroll" class="enroll-button">Enroll Now</a>
-</div>
+<section id="wystawy" class="container mx-auto mt-32">
+    <h2 class="text-center text-2xl font-bold mb-6">Aktualne i nadchodzące wystawy</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        @foreach (var item in exhibitions)
+        {
+            <div class="bg-white border border-gray-200 rounded-sm shadow-md overflow-hidden flex flex-col">
+                <div class="h-48 bg-cover bg-center" style="background-image: url('@item.ImageUrl');"></div>
+                <div class="p-4 flex flex-col justify-between flex-grow">
+                    <div>
+                        <h5 class="text-lg font-bold">@item.Title</h5>
+                        @if (!string.IsNullOrEmpty(item.Subtitle))
+                        {
+                            <p class="text-sm text-gray-500">@item.Subtitle</p>
+                        }
+                        <p class="text-sm text-gray-500 mt-1">@item.Gallery</p>
+                    </div>
+                    <div class="mt-4">
+                        <small class="text-gray-600"><i class="bi bi-calendar2"></i> @item.DateRange</small>
+                        <a href="@item.Link" class="stretched-link float-right text-indigo-600 hover:text-indigo-900"><i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 
-<div class="courses-offering">
-    <h2>Our Academic Offerings</h2>
-    <ul class="course-list">
-        <li class="course-item">
-            <h3>Bachelor's Programs</h3>
-            <p>Our bachelor's programs offer a strong foundation in various fields of study, preparing you for a successful career.</p>
-        </li>
-        <li class="course-item">
-            <h3>Master's Programs</h3>
-            <p>Advance your knowledge and skills with our master's programs, designed to equip you with expertise in your chosen area.</p>
-        </li>
-        <li class="course-item">
-            <h3>Professional Courses</h3>
-            <p>Enhance your career with our professional courses that provide practical skills and certifications.</p>
-        </li>
-    </ul>
-</div>
+    <div class="text-center mt-8">
+        <a href="https://www.wit.edu.pl/wystawy" class="custom-button inline-block bg-white text-gray-700 font-normal py-2 px-6 border border-gray-500 rounded transition-all duration-300 ease-in-out relative">
+            <span class="button-icon absolute left-4 top-1/2 transform -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out">
+                <i class="bi bi-chevron-right"></i>
+            </span>
+
+            <span class="button-text inline-block">
+                Zobacz ostatnie wystawy
+            </span>
+        </a>
+    </div>
+</section>
+
 
 <link rel="stylesheet" href="~/css/site.css">

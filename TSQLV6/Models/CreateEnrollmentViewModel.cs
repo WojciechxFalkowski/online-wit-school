@@ -7,5 +7,6 @@
         public int CourseId { get; set; }
         public decimal? Grade { get; set; }
         public DateOnly? CompletionDate { get; set; }
+        public string? Points { get; set; }
     }
 }

@@ -4,52 +4,58 @@
     ViewData["Title"] = "Theses";
     Layout = "~/Views/Shared/_Layout.cshtml";
     bool isAdmin = User.HasClaim(c => c.Type == ClaimTypes.Role && c.Value == "administrator");
+    bool isStudent = User.HasClaim(c => c.Type == ClaimTypes.Role && c.Value == "student");
 }
 
-<h1 class="text-3xl font-bold mb-4">Theses</h1>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-bold mb-4">Theses</h1>
 
-<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <div class="flex justify-between mb-4">
-        <a asp-action="Create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New Thesis</a>
-    </div>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        @if (isStudent)
+        {
+            <div class="flex justify-between mb-4">
+                <a asp-action="Create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New Thesis</a>
+            </div>
+        }
 
-    <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    @if (isAdmin)
-                    {
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thesis ID</th>
-                    }
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thesis Type</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Upload Date</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document Path</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @foreach (var item in Model)
-                {
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
                     <tr>
                         @if (isAdmin)
                         {
-                            <td class="px-6 py-4 whitespace-nowrap">@item.ThesisId</td>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thesis ID</th>
                         }
-                        <td class="px-6 py-4 whitespace-nowrap">@item.Title</td>
-                        <td class="px-6 py-4 whitespace-nowrap">@item.ThesisType</td>
-                        <td class="px-6 py-4 whitespace-nowrap">@item.UploadDate.ToString("yyyy-MM-dd")</td>
-                        <td class="px-6 py-4 whitespace-nowrap">@item.DocumentPath</td>
-                        <td class="px-6 py-4 whitespace-nowrap">@item.Student.Email</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <a asp-action="Edit" asp-route-id="@item.ThesisId" class="text-indigo-600 hover:text-indigo-900">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ThesisId" class="text-indigo-600 hover:text-indigo-900">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ThesisId" class="text-red-600 hover:text-red-900">Delete</a>
-                        </td>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thesis Type</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Upload Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Document Path</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @if (isAdmin)
+                            {
+                                <td class="px-6 py-4 whitespace-nowrap">@item.ThesisId</td>
+                            }
+                            <td class="px-6 py-4 whitespace-nowrap">@item.Title</td>
+                            <td class="px-6 py-4 whitespace-nowrap">@item.ThesisType</td>
+                            <td class="px-6 py-4 whitespace-nowrap">@item.UploadDate.ToString("yyyy-MM-dd")</td>
+                            <td class="px-6 py-4 whitespace-nowrap">@item.DocumentPath</td>
+                            <td class="px-6 py-4 whitespace-nowrap">@item.Student.Email</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a asp-action="Details" asp-route-id="@item.ThesisId" class="text-indigo-600 hover:text-indigo-900">Details</a> |
+                                <a asp-action="Edit" asp-route-id="@item.ThesisId" class="text-indigo-600 hover:text-indigo-900">Edit</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ThesisId" class="text-red-600 hover:text-red-900">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

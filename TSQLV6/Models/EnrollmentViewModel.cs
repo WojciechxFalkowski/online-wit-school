@@ -9,4 +9,5 @@ public class EnrollmentViewModel
     public string CourseName { get; set; }
     public decimal? Grade { get; set; }
     public string CompletionDate { get; set; }
+    public string? Points { get; set; }
 }

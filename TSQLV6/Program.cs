@@ -2,27 +2,32 @@
 using Microsoft.EntityFrameworkCore;
 using TSQLV6.Models;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<UniversityDbContext>(options => options.UseSqlServer(
               builder.Configuration.GetConnectionString("DefaultConnection"),
                options => options.CommandTimeout(3600))
            );
 
-// Add IHttpContextAccessor
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-// Add services to the container
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); // AddRazorRuntimeCompilation() -> MUST HAVE
 
-// Dodajemy usługi uwierzytelniania
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
 {
-    options.Cookie.Name = "auth_token"; // Zmieniona nazwa cookie na "auth_token"
+    options.Cookie.Name = "auth_token";
     options.LoginPath = "/Users/Login";
     options.AccessDeniedPath = "/Home/AccessDenied";
+});
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(1); // Czas wygaśnięcia sesji
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -40,9 +45,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Dodajemy middleware uwierzytelniania i autoryzacji
+var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
+var logger = loggerFactory.CreateLogger("SessionMiddlewareLogger");
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.MapControllerRoute(
     name: "default",

@@ -5,37 +5,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-3xl font-bold mb-4">Create New Student</h1>
+<div class="container mx-auto mt-6 px-6">
+    <h1 class="text-3xl font-bold mb-4">Create New Student</h1>
 
-<form asp-action="Create" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <div class="mb-4">
-        <label asp-for="StudyMode" class="block text-gray-700 text-sm font-bold mb-2">Study Mode</label>
-        <select asp-for="StudyMode" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.StudyModeOptions"></select>
-        <span asp-validation-for="StudyMode" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="mb-4">
-        <label asp-for="SpecializationId" class="block text-gray-700 text-sm font-bold mb-2">Specialization</label>
-        <select asp-for="SpecializationId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Specializations"></select>
-        <span asp-validation-for="SpecializationId" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="mb-4">
-        <label asp-for="DepartmentId" class="block text-gray-700 text-sm font-bold mb-2">Department</label>
-        <select asp-for="DepartmentId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Departments"></select>
-        <span asp-validation-for="DepartmentId" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="mb-4">
-        <label asp-for="StudentId" class="block text-gray-700 text-sm font-bold mb-2">Student</label>
-        <select asp-for="StudentId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Users"></select>
-        <span asp-validation-for="StudentId" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="text-red-600 text-sm mb-4">
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <p>@error.ErrorMessage</p>
-        }
-    </div>
-    <div class="flex items-center justify-between">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
-        <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
-    </div>
-</form>
+    <form asp-action="Create" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+            <label asp-for="StudyMode" class="block text-gray-700 text-sm font-bold mb-2">Study Mode</label>
+            <select asp-for="StudyMode" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.StudyModeOptions"></select>
+            <span asp-validation-for="StudyMode" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="SpecializationId" class="block text-gray-700 text-sm font-bold mb-2">Specialization</label>
+            <select asp-for="SpecializationId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Specializations"></select>
+            <span asp-validation-for="SpecializationId" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="DepartmentId" class="block text-gray-700 text-sm font-bold mb-2">Department</label>
+            <select asp-for="DepartmentId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Departments"></select>
+            <span asp-validation-for="DepartmentId" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="StudentId" class="block text-gray-700 text-sm font-bold mb-2">Student</label>
+            <select asp-for="StudentId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Users"></select>
+            <span asp-validation-for="StudentId" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="text-red-600 text-sm mb-4">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+        <div class="flex items-center justify-between">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
+            <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+        </div>
+    </form>
+</div>

@@ -31,6 +31,9 @@ namespace TSQLV6.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
+
             if (User.IsInRole("administrator"))
             {
                 return View(await _context.Users.ToListAsync());
@@ -45,6 +48,8 @@ namespace TSQLV6.Controllers
         [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
+            SetSessionData();
+
             if (id == null)
             {
                 return NotFound();
@@ -116,11 +121,11 @@ namespace TSQLV6.Controllers
 
             // Generowanie tokenu i ustawianie pliku cookie
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new Claim(ClaimTypes.Role, user.UserType ?? "")
-            };
+    {
+        new Claim(ClaimTypes.Name, user.Email),
+        new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+        new Claim(ClaimTypes.Role, user.UserType ?? "")
+    };
 
             var claimsIdentity = new ClaimsIdentity(claims, "MyCookieAuth");
 
@@ -130,13 +135,21 @@ namespace TSQLV6.Controllers
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
             });
 
+            if (user.UserType != null)
+            {
+                // Ustawianie userRole w sesji
+                HttpContext.Session.SetString("UserRole", user.UserType);
+            }
+
             return RedirectToAction(nameof(Index));
         }
+
 
         // GET: Users/Logout
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("MyCookieAuth");
+            HttpContext.Session.Remove("UserRole");
             return RedirectToAction(nameof(Login));
         }
 
@@ -310,5 +323,15 @@ namespace TSQLV6.Controllers
         {
             return _context.Users.Any(e => e.UserId == id);
         }
+        private void SetSessionData()
+        {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (!string.IsNullOrEmpty(userRole))
+            {
+                ViewData["UserRole"] = userRole;
+                TempData["UserRole"] = userRole;
+            }
+        }
+
     }
 }

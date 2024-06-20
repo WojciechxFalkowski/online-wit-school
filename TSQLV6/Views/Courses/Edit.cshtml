@@ -5,37 +5,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-3xl font-bold mb-4">Edit Course</h1>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-bold mb-4">Edit Course</h1>
 
-<form asp-action="Edit" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <input type="hidden" asp-for="CourseId" />
-    <div class="mb-4">
-        <label asp-for="CourseCode" class="block text-gray-700 text-sm font-bold mb-2"></label>
-        <input asp-for="CourseCode" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        <span asp-validation-for="CourseCode" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="mb-4">
-        <label asp-for="CourseName" class="block text-gray-700 text-sm font-bold mb-2"></label>
-        <input asp-for="CourseName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        <span asp-validation-for="CourseName" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="mb-4">
-        <label asp-for="Description" class="block text-gray-700 text-sm font-bold mb-2"></label>
-        <textarea asp-for="Description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-        <span asp-validation-for="Description" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="mb-4">
-        <label asp-for="AcademicYear" class="block text-gray-700 text-sm font-bold mb-2"></label>
-        <input asp-for="AcademicYear" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-        <span asp-validation-for="AcademicYear" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="mb-4">
-        <label asp-for="LecturerId" class="block text-gray-700 text-sm font-bold mb-2">Lecturer</label>
-        <select asp-for="LecturerId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Lecturers"></select>
-        <span asp-validation-for="LecturerId" class="text-red-600 text-sm"></span>
-    </div>
-    <div class="flex items-center justify-between">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
-        <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
-    </div>
-</form>
+    <form asp-action="Edit" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <input type="hidden" asp-for="CourseId" />
+        <div class="mb-4">
+            <label asp-for="CourseCode" class="block text-gray-700 text-sm font-bold mb-2"></label>
+            <input asp-for="CourseCode" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <span asp-validation-for="CourseCode" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="CourseName" class="block text-gray-700 text-sm font-bold mb-2"></label>
+            <input asp-for="CourseName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <span asp-validation-for="CourseName" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="Description" class="block text-gray-700 text-sm font-bold mb-2"></label>
+            <textarea asp-for="Description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            <span asp-validation-for="Description" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="AcademicYear" class="block text-gray-700 text-sm font-bold mb-2"></label>
+            <input asp-for="AcademicYear" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <span asp-validation-for="AcademicYear" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="LecturerId" class="block text-gray-700 text-sm font-bold mb-2">Lecturer</label>
+            <select asp-for="LecturerId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" asp-items="ViewBag.Lecturers"></select>
+            <span asp-validation-for="LecturerId" class="text-red-600 text-sm"></span>
+        </div>
+        <div class="flex items-center justify-between">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
+            <a asp-action="Index" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Back to List</a>
+        </div>
+    </form>
+</div>
