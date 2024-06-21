@@ -16,6 +16,7 @@ public class ThesesController : Controller
     }
 
     // GET: Theses
+    [Authorize(Roles = "student,administrator")]
     public async Task<IActionResult> Index()
     {
         IQueryable<Thesis> thesesQuery = _context.Theses.Include(t => t.Student);

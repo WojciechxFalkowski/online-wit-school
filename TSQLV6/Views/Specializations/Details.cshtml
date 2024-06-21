@@ -10,10 +10,13 @@
 
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <dl class="divide-y divide-gray-200">
-            <div class="py-4 flex">
-                <dt class="font-medium text-gray-700 w-1/4">Specialization ID</dt>
-                <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SpecializationId)</dd>
-            </div>
+            @if (User.IsInRole("administrator"))
+            {
+                <div class="py-4 flex">
+                    <dt class="font-medium text-gray-700 w-1/4">Specialization ID</dt>
+                    <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SpecializationId)</dd>
+                </div>
+            }
             <div class="py-4 flex">
                 <dt class="font-medium text-gray-700 w-1/4">Specialization Name</dt>
                 <dd class="text-gray-900 w-3/4">@Html.DisplayFor(model => model.SpecializationName)</dd>

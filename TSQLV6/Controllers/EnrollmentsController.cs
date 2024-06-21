@@ -97,7 +97,7 @@ namespace TSQLV6.Controllers
         // GET: Enrollments/Create
         public IActionResult Create()
         {
-            ViewData["Students"] = new SelectList(_context.Students.Select(s => new { s.StudentId, StudentName = s.StudentNavigation.FirstName + " " + s.StudentNavigation.LastName }), "StudentId", "StudentName");
+            ViewData["Students"] = new SelectList(_context.Users.Where(u => u.UserType == "student").Select(s => new { s.UserId, StudentName = s.FirstName + " " + s.LastName }), "UserId", "StudentName");
             ViewData["Courses"] = new SelectList(_context.Courses, "CourseId", "CourseName");
             return View();
         }
@@ -110,19 +110,18 @@ namespace TSQLV6.Controllers
             _logger.LogInformation("Received POST request to create an enrollment with the following data: {Enrollment}", model);
             _logger.LogInformation("ModelState.IsValid: {IsValid}", ModelState.IsValid);
 
-            if (!ModelState.IsValid)
-            {
-                foreach (var state in ModelState)
-                {
-                    foreach (var error in state.Value.Errors)
-                    {
-                        _logger.LogError("Model state error in key '{Key}': {ErrorMessage}", state.Key, error.ErrorMessage);
-                    }
-                }
-            }
-
             if (ModelState.IsValid)
             {
+                // Sprawdzenie, czy ten kurs jest już przypisany do studenta
+                var exists = await _context.Enrollments.AnyAsync(e => e.StudentId == model.StudentId && e.CourseId == model.CourseId);
+                if (exists)
+                {
+                    ModelState.AddModelError(string.Empty, "The student is already enrolled in this course.");
+                    ViewData["Students"] = new SelectList(_context.Users.Where(u => u.UserType == "student").Select(s => new { s.UserId, StudentName = s.FirstName + " " + s.LastName }), "UserId", "StudentName", model.StudentId);
+                    ViewData["Courses"] = new SelectList(_context.Courses, "CourseId", "CourseName", model.CourseId);
+                    return View(model);
+                }
+
                 var enrollment = new Enrollment
                 {
                     EnrollmentId = model.EnrollmentId,
@@ -138,7 +137,7 @@ namespace TSQLV6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Students"] = new SelectList(_context.Students.Select(s => new { s.StudentId, StudentName = s.StudentNavigation.FirstName + " " + s.StudentNavigation.LastName }), "StudentId", "StudentName", model.StudentId);
+            ViewData["Students"] = new SelectList(_context.Users.Where(u => u.UserType == "student").Select(s => new { s.UserId, StudentName = s.FirstName + " " + s.LastName }), "UserId", "StudentName", model.StudentId);
             ViewData["Courses"] = new SelectList(_context.Courses, "CourseId", "CourseName", model.CourseId);
             return View(model);
         }
@@ -236,6 +235,7 @@ namespace TSQLV6.Controllers
             ViewData["Courses"] = new SelectList(_context.Courses, "CourseId", "CourseName", model.CourseId);
             return View(model);
         }
+
 
         // GET: Enrollments/Delete/5
         public async Task<IActionResult> Delete(int? id)

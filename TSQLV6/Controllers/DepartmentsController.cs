@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TSQLV6.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TSQLV6.Controllers
 {
